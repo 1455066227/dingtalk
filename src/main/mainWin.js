@@ -30,7 +30,7 @@ export default dingtalk => () => {
     minHeight: 450,
     useContentSize: true,
     center: true,
-    frame: false,
+    frame: true,
     show: false,
     backgroundColor: '#5a83b7',
     icon: logo,

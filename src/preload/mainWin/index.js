@@ -36,7 +36,7 @@ class MainWinInjector {
      * 插入窗口操作按钮
      * 关闭/最大化/最小化
      */
-    this.winOperation()
+    // this.winOperation()
     /**
      * 检测是否需要插入记住我选项
      */
