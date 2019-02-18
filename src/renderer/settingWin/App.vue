@@ -1,9 +1,9 @@
 <template lang="pug">
 .app
   .app-item
-    dt-keybinding(
-      v-model="shortcutCapture",
-      title="截图"
+    dt-switch(
+      v-model="nativeTitleBar",
+      title="窗口系统样式"
     )
   .app-item
     dt-switch(
@@ -32,23 +32,6 @@ export default {
     }
   },
   computed: {
-    shortcutCapture: {
-      get () {
-        return this.setting.keymap
-          ? this.setting.keymap['shortcut-capture']
-          : []
-      },
-      set (val) {
-        const keymap = this.setting.keymap || {}
-        this.setting = {
-          ...this.setting,
-          keymap: {
-            ...keymap,
-            'shortcut-capture': val
-          }
-        }
-      }
-    },
     autoupdate: {
       get () {
         return !!this.setting.autoupdate
@@ -57,6 +40,17 @@ export default {
         this.setting = {
           ...this.setting,
           autoupdate: val
+        }
+      }
+    },
+    nativeTitleBar: {
+      get () {
+        return !!this.setting.nativeTitleBar
+      },
+      set (val) {
+        this.setting = {
+          ...this.setting,
+          nativeTitleBar: val
         }
       }
     }

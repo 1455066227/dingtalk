@@ -31,10 +31,6 @@ export default class DingtalkTray {
           click: () => this._dingtalk.showMainWin()
         },
         {
-          label: '屏幕截图',
-          click: () => this._dingtalk.shortcutCapture()
-        },
-        {
           label: '设置',
           click: () => this._dingtalk.showSettingWin()
         },

@@ -13,7 +13,7 @@ export default dingtalk => () => {
   const $win = new BrowserWindow({
     title: '设置',
     width: 320,
-    height: 260,
+    height: 210,
     useContentSize: true,
     resizable: false,
     menu: false,
@@ -46,7 +46,7 @@ export default dingtalk => () => {
   ipcMain.on('SETTINGWIN:setting', async (e, setting) => {
     dingtalk.setting = setting
     await dingtalk.writeSetting()
-    dingtalk.bindShortcut()
+    // dingtalk.bindShortcut()
     if (dingtalk.setting.autoupdate) {
       autoUpdater.checkForUpdates()
     }

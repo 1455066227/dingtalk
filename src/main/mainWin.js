@@ -30,7 +30,7 @@ export default dingtalk => () => {
     minHeight: 450,
     useContentSize: true,
     center: true,
-    frame: true,
+    frame: dingtalk.setting.nativeTitleBar,
     show: false,
     backgroundColor: '#5a83b7',
     icon: logo,

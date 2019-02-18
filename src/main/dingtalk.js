@@ -11,6 +11,8 @@ import autoUpdate from './autoUpdate'
 import settingWin from './settingWin'
 import DingtalkTray from './dingtalkTray'
 import ShortcutCapture from 'shortcut-capture'
+import globalConfig from './config'
+import winOperation from '../preload/mainWin/winOperation'
 
 export default class DingTalk {
   // app对象是否ready
@@ -32,12 +34,7 @@ export default class DingTalk {
   // 网络情况，默认为null，必须等到页面报告状态
   online = null
   // 默认配置
-  setting = {
-    autoupdate: true,
-    keymap: {
-      'shortcut-capture': ['Control', 'Alt', 'A']
-    }
-  }
+  setting = globalConfig
 
   constructor () {
     if (!this.requestSingleInstanceLock()) {
@@ -49,7 +46,7 @@ export default class DingTalk {
         this.initShortcutCapture()
         this.initNotify()
         this.autoUpdate()
-        this.bindShortcut()
+        // this.bindShortcut()
       })
     }
   }
@@ -150,7 +147,7 @@ export default class DingTalk {
    * 退出应用
    */
   quit () {
-    this.$shortcutCapture.destroy()
+    // this.$shortcutCapture.destroy()
     const windows = BrowserWindow.getAllWindows()
     windows.forEach(item => !item.isDestroyed() && item.destroy())
     if (process.platform !== 'darwin') {
@@ -159,6 +156,13 @@ export default class DingTalk {
         this.$tray = null
       }
       app.quit()
+    }
+  }
+
+  onSettingChange () {
+    // TODO: 动态设置窗口样式
+    if (this.setting.nativeTitleBar) {
+      winOperation()
     }
   }
 

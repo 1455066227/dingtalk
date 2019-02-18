@@ -4,9 +4,11 @@ import openEmail from './openEmail'
 import rememberMe from './rememberMe'
 import winOperation from './winOperation'
 import notifyMessage from './notifyMessage'
-import { ipcRenderer, webFrame } from 'electron'
-
+import { ipcRenderer, webFrame, app } from 'electron'
+import fs from 'fs'
+import path from 'path'
 import './css.styl'
+import globalConfig from '../../main/config'
 
 class MainWinInjector {
   constructor () {
@@ -16,6 +18,24 @@ class MainWinInjector {
       this.callback.forEach(item => item())
     }, 1000)
     this.init()
+  }
+
+  async readSetting () {
+    const filename = path.join(app.getPath('userData'), 'setting.json')
+    return new Promise((resolve, reject) => {
+      fs.readFile(filename, (err, data) => {
+        if (err) return reject(err)
+        try {
+          const setting = JSON.parse(data)
+          if (typeof setting.keymap['shortcut-capture'] === 'string') {
+            setting.keymap['shortcut-capture'] = setting.keymap['shortcut-capture'].split('+')
+          }
+          resolve({ ...globalConfig, ...setting })
+        } catch (e) {
+          resolve(globalConfig)
+        }
+      })
+    })
   }
 
   // 初始化
@@ -37,6 +57,7 @@ class MainWinInjector {
      * 关闭/最大化/最小化
      */
     // this.winOperation()
+    let settings = await this.readSetting()()
     /**
      * 检测是否需要插入记住我选项
      */
