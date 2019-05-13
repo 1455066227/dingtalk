@@ -51,7 +51,6 @@ export default class DingTalk {
     }
   }
 
-
   /**
    * 初始化
    * @return {Promise} setting

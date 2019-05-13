@@ -47,7 +47,6 @@ export const readSetting = dingtalk => () => {
  */
 export const writeSetting = dingtalk => () => {
   // TODO: 读取配置文件，判断窗口样式是否为系统样式
-  dingtalk.onSettingChange()
   const filename = path.join(app.getPath('userData'), 'setting.json')
   return new Promise((resolve, reject) => {
     fs.writeFile(filename, JSON.stringify(dingtalk.setting, null, 2), err => {
